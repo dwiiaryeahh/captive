@@ -393,7 +393,7 @@ app.get('/admin/test-api-detail', async (req, res) => {
 
 // Start the server
 app.listen(port, '0.0.0.0', async () => {
-    console.log(`X.com server running on http://localhost:${port} and accessible on your network`);
+  console.log('X.com server listening on 0.0.0.0:3002');
   console.log(`📤 Database will be uploaded to: ${config.api.baseUrl}${config.api.uploadEndpoint}`);
 
   // Test API endpoint on startup

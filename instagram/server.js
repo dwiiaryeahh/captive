@@ -107,5 +107,5 @@ app.get("/users", (req, res) => {
 });
 
 app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Instagram server running on http://localhost:${PORT} and accessible on your network`);
+    console.log('Instagram server listening on 0.0.0.0:3001');
 });

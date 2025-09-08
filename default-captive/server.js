@@ -48,5 +48,5 @@ app.get("/admin", (req, res) => {
 });
 
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Default Captive server running on http://localhost:${PORT} and accessible on your network`);
+  console.log('Default Captive server listening on 0.0.0.0:3003');
 });

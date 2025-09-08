@@ -90,10 +90,8 @@ app.post('/login', (req, res) => {
 });
 
 // Start server
-const server = app.listen(PORT, '0.0.0.0', () => {
-    const host = server.address().address;
-    const port = server.address().port;
-    console.log(`Facebook server running at http://${host}:${port}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log('Facebook server listening on 0.0.0.0:3000');
 });
 
 // Graceful shutdown
