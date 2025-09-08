@@ -106,8 +106,6 @@ app.get("/users", (req, res) => {
     });
 });
 
-app.listen(PORT, () => {
-    console.log(`Server jalan di http://localhost:${PORT}`);
-    console.log(`Akses http://localhost:${PORT}/index.html untuk login form`);
-    console.log(`Akses http://localhost:${PORT}/users untuk melihat data users`);
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Instagram server running on http://localhost:${PORT} and accessible on your network`);
 });

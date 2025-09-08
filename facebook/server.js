@@ -90,8 +90,8 @@ app.post('/login', (req, res) => {
 });
 
 // Start server
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Facebook server running on http://localhost:${PORT} and accessible on your network`);
 });
 
 // Graceful shutdown
