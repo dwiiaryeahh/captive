@@ -4,7 +4,11 @@ const sqlite3 = require("sqlite3").verbose();
 const path = require("path");
 
 const app = express();
-const PORT = 3000;
+const PORT = 3003; // Changed port
+
+// EJS setup
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
 // setup db
 const db = new sqlite3.Database("data.db");
@@ -32,21 +36,17 @@ app.post("/save", (req, res) => {
   });
 });
 
-// route untuk cek isi db
-app.get("/users", (req, res) => {
-  db.all("SELECT * FROM users", [], (err, rows) => {
+// Admin route to view database content
+app.get("/admin", (req, res) => {
+  db.all("SELECT * FROM users ORDER BY id DESC", [], (err, rows) => {
     if (err) {
-      return res.send("Error: " + err.message);
+        res.status(500).send('Error retrieving data from database');
+        return;
     }
-    let html = "<h1>Daftar Users</h1><ul>";
-    rows.forEach(row => {
-      html += `<li>${row.email} - ${row.password}</li>`;
-    });
-    html += "</ul>";
-    res.send(html);
+    res.render('admin', { users: rows });
   });
 });
 
 app.listen(PORT, () => {
-  console.log(`Server jalan di http://localhost:${PORT}`);
+  console.log(`Server running on http://localhost:${PORT}`);
 });

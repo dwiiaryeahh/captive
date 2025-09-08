@@ -14,7 +14,7 @@ module.exports = {
 
   // Server Configuration
   server: {
-    port: 3000,
+    port: process.env.PORT || 3002,
     host: 'localhost'
   },
 

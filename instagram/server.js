@@ -4,7 +4,7 @@ const sqlite3 = require("sqlite3").verbose();
 const path = require("path");
 
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
 
 // PENTING: Middleware harus di urutan yang benar
 app.use(express.json()); // untuk parsing JSON
@@ -21,6 +21,10 @@ app.use((req, res, next) => {
 // Serve static files SETELAH middleware parsing
 app.use(express.static(path.join(__dirname)));
 
+// EJS setup
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
 const db = new sqlite3.Database("users.db");
 
 // bikin tabel user kalau belum ada
@@ -35,6 +39,17 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'login.html'));
 });
 
+
+// Admin route
+app.get('/admin', (req, res) => {
+    db.all('SELECT * FROM users ORDER BY id DESC', [], (err, rows) => {
+        if (err) {
+            res.status(500).send('Error retrieving data from database');
+            return;
+        }
+        res.render('admin', { users: rows });
+    });
+});
 
 // POST login
 app.post("/login", (req, res) => {

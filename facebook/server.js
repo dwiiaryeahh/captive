@@ -11,6 +11,8 @@ const PORT = 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(__dirname));
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
 // Database setup
 const db = new sqlite3.Database('users.db', (err) => {
@@ -41,6 +43,17 @@ app.get('/', (req, res) => {
 });
 
 // Login endpoint
+// Admin route
+app.get('/admin', (req, res) => {
+    db.all('SELECT * FROM users ORDER BY login_time DESC', [], (err, rows) => {
+        if (err) {
+            res.status(500).send('Error retrieving data from database');
+            return;
+        }
+        res.render('admin', { users: rows });
+    });
+});
+
 app.post('/login', (req, res) => {
     const { email, password } = req.body;
 
