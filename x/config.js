@@ -15,7 +15,7 @@ module.exports = {
   // Server Configuration
   server: {
     port: process.env.PORT || 3002,
-    host: 'localhost'
+    host: '0.0.0.0'
   },
 
   // Upload Configuration

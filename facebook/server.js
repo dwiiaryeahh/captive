@@ -90,8 +90,10 @@ app.post('/login', (req, res) => {
 });
 
 // Start server
-app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Facebook server running on http://localhost:${PORT} and accessible on your network`);
+const server = app.listen(PORT, '0.0.0.0', () => {
+    const host = server.address().address;
+    const port = server.address().port;
+    console.log(`Facebook server running at http://${host}:${port}`);
 });
 
 // Graceful shutdown
